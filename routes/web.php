@@ -2,6 +2,8 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
+use App\Http\Controllers\BlogController;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -12,6 +14,13 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+
+$router->get('/blog', 'BlogController@index'); 
+$router->post('/blog', 'BlogController@store');
+$router->get('/blog/{id}', 'BlogController@show');
+$router->put('/blog/{id}', 'BlogController@update');  
+$router->delete('/blog/{id}', 'BlogController@destroy');  
+
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
