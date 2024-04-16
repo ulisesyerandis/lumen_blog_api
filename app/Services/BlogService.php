@@ -8,10 +8,34 @@ use Illuminate\Http\Request;
 class BlogService
 {
     public function index()
-    {   
-        $blog =  Blog::all();
-        return $blog;
+{   
+    try 
+    {
+        $blogs = Blog::all();
+        if ($blogs->isEmpty()) 
+        {
+            throw new \Exception('Blogs not found', 404);
+        }
+        return $blogs;
+    } catch (\Exception $e) {
+        throw new \Exception('Error getting blogs: ' . $e->getMessage(), 500);
     }
+}
+
+public function search($criteria)
+{   
+    try 
+    {
+        $blogs = Blog::where('id', $criteria)->get();
+        if ($blogs->isEmpty()) 
+        {
+            throw new \Exception('Blog not found', 404);
+        }
+        return $blogs;
+    } catch (\Exception $e) {
+        throw new \Exception('Error getting blogs: ' . $e->getMessage(), 500);
+    }
+}
 
     public function show($id)
     {
@@ -19,23 +43,27 @@ class BlogService
 
         if(!$blog)
         {
-            // $message = 'Blog not found';
-            // return $message;
             throw new \Exception('Blog not found', 404);
         }
-
         return $blog;
     }
 
     public function store(Request $request)
     {
-        $blog = new Blog();
-        $blog->title = $request->input('title'); 
-        $blog->content = $request->input('content');
-        $blog->author = $request->input('author');
-        $blog->save();
+        try
+        {
+            $blog = new Blog();
+            $blog->title = $request->input('title'); 
+            $blog->content = $request->input('content');
+            $blog->author = $request->input('author');
+            $blog->save();
 
-        return $blog;
+            return $blog;
+        } catch (\Exception $e) 
+        {
+            throw new \Exception('Error creating blog: ' . $e->getMessage(), 500);
+        }
+        
     }
 
     public function update(Request $request, $id)
@@ -44,8 +72,6 @@ class BlogService
 
         if(!$blog)
         {
-            // $message = 'Blog not found';
-            // return $message;
             throw new \Exception('Blog not found', 404);
         }
 
@@ -63,8 +89,6 @@ class BlogService
 
         if(!$blog)
         {
-            // $message = 'Blog not found';
-            // return $message;
             throw new \Exception('Blog not found', 404);
         }
 
