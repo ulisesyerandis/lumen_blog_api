@@ -48,7 +48,7 @@ class BlogController extends Controller
     public function show($id)
     {
         $validatorId = Validator::make([$id], [
-            'id' => 'required|integer|gt:0',
+            'id' => 'integer|gt:0',
         ]);
 
         if ($validatorId->fails()) 
@@ -81,12 +81,11 @@ class BlogController extends Controller
         try
         {
             $blog = $this->blogService->store($request);
-        return response()->json($blog, 201);
+            return response()->json($blog, 201);
         }catch(\Exception $e)
         {
             return response()->json(['error' => $e->getMessage()], $e->getCode());
         }
-        
     }
 
     public function update(Request $request, $id)
@@ -103,7 +102,7 @@ class BlogController extends Controller
         }
 
         $validatorId = Validator::make([$id], [
-            'id' => 'required|integer|gt:0',
+            'id' => 'integer|gt:0',
         ]);
 
         if ($validatorId->fails()) 
@@ -124,7 +123,7 @@ class BlogController extends Controller
     public function destroy($id)
     {
         $validatorId = Validator::make([$id], [
-            'id' => 'required|integer|gt:0',
+            'id' => 'integer|gt:0',
         ]);
 
         if ($validatorId->fails()) 
@@ -134,7 +133,7 @@ class BlogController extends Controller
         try
         {
             $blog = $this->blogService->destroy($id);
-            return response()->json($blog, 204);
+            return response()->json($blog, 200);
         }catch (\Exception $e)
         {
             return response()->json(['error' => $e->getMessage()], $e->getCode());
