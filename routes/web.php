@@ -17,7 +17,6 @@ use App\Http\Controllers\BlogController;
 
 $router->get('/blog', 'BlogController@index'); 
 $router->post('/blog', 'BlogController@store');
-$router->get('/blog/{id}', 'BlogController@show');
 $router->put('/blog/{id}', 'BlogController@update');  
 $router->delete('/blog/{id}', 'BlogController@destroy');  
 

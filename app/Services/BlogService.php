@@ -37,17 +37,6 @@ public function search($criteria)
     }
 }
 
-    public function show($id)
-    {
-        $blog = Blog::find($id);
-
-        if(!$blog)
-        {
-            throw new \Exception('Blog not found', 404);
-        }
-        return $blog;
-    }
-
     public function store(Request $request)
     {
         try

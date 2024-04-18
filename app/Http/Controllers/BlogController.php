@@ -45,26 +45,6 @@ class BlogController extends Controller
         }        
     }
 
-    public function show($id)
-    {
-        $validatorId = Validator::make([$id], [
-            'id' => 'integer|gt:0',
-        ]);
-
-        if ($validatorId->fails()) 
-        {
-            return response()->json(['error' => 'The id parameter must be an integer greater than 0'], 400);
-        }
-        try
-        {
-            $blog = $this->blogService->show($id);
-            return response()->json($blog);
-        }catch(\Exception $e)
-        {
-            return response()->json(['error' => $e->getMessage()], $e->getCode());
-        }
-    }
-
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
