@@ -24,7 +24,7 @@ class BlogController extends Controller
     
         if ($validator->fails()) 
         {
-            return response()->json(['error' => 'The id must be a number greater than 0'], 400);
+            return response()->json(['error' => 'The id must be a number greater than 0'], 422);
         }
 
         $criteria = $request->query('criteria');
@@ -55,7 +55,7 @@ class BlogController extends Controller
 
         if ($validator->fails()) 
         {
-            return response()->json(['errors' => $validator->errors()], 400);
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         try
@@ -78,7 +78,7 @@ class BlogController extends Controller
 
         if ($validator->fails()) 
         {
-            return response()->json(['errors' => $validator->errors()], 400);
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $validatorId = Validator::make([$id], [
@@ -87,7 +87,7 @@ class BlogController extends Controller
 
         if ($validatorId->fails()) 
         {
-            return response()->json(['error' => 'The id parameter must be an integer greater than 0'], 400);
+            return response()->json(['error' => 'The id parameter must be an integer greater than 0'], 422);
         }
 
         try
@@ -108,7 +108,7 @@ class BlogController extends Controller
 
         if ($validatorId->fails()) 
         {
-            return response()->json(['error' => 'The id parameter must be an integer greater than 0'], 400);
+            return response()->json(['error' => 'The id parameter must be an integer greater than 0'], 422);
         }
         try
         {
